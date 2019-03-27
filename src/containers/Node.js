@@ -2,13 +2,17 @@ import React from 'react'
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
+import * as actions from '../actions';
+
 class Node extends Component {
     handleNameChange = (e) => {
         console.log('value =', e.target.value);
     }
 
     handleAddChildClick = () => {
-        console.log('add child');
+        const { createNode, addChild, id: parentId } = this.props;
+        const childId = createNode().nodeId;
+        addChild(parentId, childId);
     }
 
     handleRemoveClick = () => {
@@ -46,7 +50,7 @@ class Node extends Component {
                         Remove
                     </button>
                 </div>
-                {childIds && childIds.length > 0 && 
+                {childIds && childIds.length > 0 &&
                     <ul>
                         {childIds.map(this.renderChild)}
                     </ul>
@@ -58,9 +62,8 @@ class Node extends Component {
 
 
 function mapStateToProps(state, ownProps) {
-    console.log('>>> state =', state.nodesById);
     return state.nodesById[ownProps.id]
 }
 
-const ConnectedNode = connect(mapStateToProps)(Node);
+const ConnectedNode = connect(mapStateToProps, actions)(Node);
 export default ConnectedNode;
