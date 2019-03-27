@@ -3,7 +3,7 @@ import './App.css';
 
 import { configureStore } from './configureStore';
 import Node from './containers/Node';
-import { selectNode, createNode, addChild, removeChild } from './actions';
+import { selectNode, createNode, addChild, removeChild, deleteNode } from './actions';
 
 
 const store = configureStore();
@@ -14,11 +14,21 @@ store.dispatch(selectNode('456'))
 let { nodeId: parentId } = store.dispatch(createNode());
 console.log('parentId =', parentId);
 
-let { nodeId: childId } = store.dispatch(createNode());
-console.log('childId =', childId);
+let { nodeId: childId1 } = store.dispatch(createNode());
+console.log('childId1 =', childId1);
 
-store.dispatch(addChild(parentId, childId));
-store.dispatch(removeChild(parentId, childId));
+let { nodeId: childId2 } = store.dispatch(createNode());
+console.log('childId2 =', childId2);
+
+let { nodeId: childId3 } = store.dispatch(createNode());
+console.log('childId3 =', childId3);
+
+store.dispatch(addChild(parentId, childId1));
+store.dispatch(addChild(parentId, childId2));
+store.dispatch(addChild(childId2, childId3));
+
+store.dispatch(removeChild(parentId, childId2));
+store.dispatch(deleteNode(childId2));
 
 
 console.log('store =', store.getState());

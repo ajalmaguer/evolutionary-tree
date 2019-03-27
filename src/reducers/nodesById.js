@@ -50,11 +50,12 @@ export function nodesById(state = {}, action) {
     switch (action.type) {
         case CREATE_NODE:
         case ADD_CHILD:
+        case REMOVE_CHILD:
             return {
                 ...state,
                 [nodeId]: node(state[nodeId], action)
             };
-        case REMOVE_CHILD:
+        case DELETE_NODE:
             const descendantIds = getAllDescendantIds(state, nodeId);
             return deleteMany(state, [nodeId, ...descendantIds]);
         default:
