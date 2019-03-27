@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom';
 import * as actions from '../actions';
 
 class Node extends Component {
+    componentDidMount() {
+        this.nameInput.focus()
+    }
+
     handleNameChange = (e) => {
         const { changeNodeName, id } = this.props;
         changeNodeName(id, e.target.value);
@@ -41,7 +45,13 @@ class Node extends Component {
             <li>
                 <div className="node">
                     <div>
-                        <input type="text" placeholder="Name..." value={name} onChange={this.handleNameChange} />
+                        <input
+                            type="text"
+                            placeholder="Name..."
+                            value={name}
+                            onChange={this.handleNameChange}
+                            ref={(input) => this.nameInput = input}
+                        />
                     </div>
 
                     {typeof parentId !== 'undefined' &&
