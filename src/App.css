@@ -7,10 +7,22 @@
     padding: 0;
 }
 
+#title {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 100;
+    padding-bottom: 20px;
+}
+
 .tree {
     overflow-x: scroll;
     /* TODO - made width dynamic */
     width: 10000px;
+    margin-top: 50px;
 }
 
 .tree ul {
