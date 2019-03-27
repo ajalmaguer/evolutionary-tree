@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 
 import './App.css';
 import { configureStore } from './configureStore';
-import { selectNode, createNode, addChild } from './actions';
+import { selectNode, createNode, addChild, changeNodeName } from './actions';
 import Node from './containers/Node';
 
 
@@ -20,6 +20,8 @@ let { nodeId: childId3 } = store.dispatch(createNode());
 store.dispatch(addChild(parentId, childId1));
 store.dispatch(addChild(parentId, childId2));
 store.dispatch(addChild(childId2, childId3));
+
+store.dispatch(changeNodeName(parentId, 'AMOEBA'))
 
 
 

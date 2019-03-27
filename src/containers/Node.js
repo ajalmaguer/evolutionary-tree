@@ -6,7 +6,8 @@ import * as actions from '../actions';
 
 class Node extends Component {
     handleNameChange = (e) => {
-        console.log('value =', e.target.value);
+        const { changeNodeName, id } = this.props;
+        changeNodeName(id, e.target.value);
     }
 
     handleAddChildClick = () => {
@@ -29,13 +30,12 @@ class Node extends Component {
     }
 
     render() {
-        console.log('this.props =', this.props);
-        const { childIds, parentId } = this.props
+        const { childIds, parentId, name } = this.props
         return (
             <li>
                 <div className="node">
                     <div>
-                        <input type="text" placeholder="Name..." onChange={this.handleNameChange} />
+                        <input type="text" placeholder="Name..." value={name} onChange={this.handleNameChange} />
                     </div>
 
                     <button
