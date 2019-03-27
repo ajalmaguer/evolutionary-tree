@@ -4,6 +4,7 @@ export const DELETE_NODE = 'DELETE_NODE';
 export const ADD_CHILD = 'ADD_CHILD';
 export const REMOVE_CHILD = 'REMOVE_CHILD';
 export const REQUEST_NODES_BY_ID = 'REQUEST_NODES_BY_ID';
+export const REQUEST_NODES_ERROR = 'REQUEST_NODES_ERROR';
 export const RECEIVE_NODES = 'RECEIVE_NODES';
 
 export const changeNodeName = (nodeId, name) => ({
@@ -45,7 +46,10 @@ export const receiveNodes = (json) => ({
     json
 });
 
-
+export const requestNodeError = (error) => ({
+    type: REQUEST_NODES_ERROR,
+    error
+});
 
 const responseData = {
     amoeba: {
@@ -61,7 +65,6 @@ const responseData = {
         childIds: []
     }
 }
-
 export const fetchNodes = (id) => {
     return (dispatch) => {
         console.log('getting posts for id =', id);
@@ -69,10 +72,11 @@ export const fetchNodes = (id) => {
 
         return new Promise(function (resolve, reject) {
             setTimeout(() => resolve(responseData), 500);
+            // setTimeout(() => reject('There was an error fetching the data.'), 500);
         })
             .then(
                 json => dispatch(receiveNodes(json)),
-                error => console.log('Oops', error) // Todo - error handling
+                error => dispatch(requestNodeError(error))
             );
 
     }

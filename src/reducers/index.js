@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { nodesById } from './nodesById';
-import { loading } from './loading';
+import { frontend } from './frontend';
 
 
 const rootReducer = combineReducers({
-    loading,
+    frontend,
     nodesById
 });
 

@@ -12,11 +12,19 @@ class Tree extends Component {
 
     render() {
 
-        const { match: { params }, loading, nodesById } = this.props;
+        const { match: { params }, loading, nodesById, error } = this.props;
 
         if (loading) {
             return (
                 <div style={{ textAlign: 'center' }}>Loading...</div>
+            )
+        }
+
+        if (error) {
+            return (
+                <div style={{ textAlign: 'center' }}>
+                    {error}
+                </div>
             )
         }
 
@@ -53,7 +61,8 @@ class Tree extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        loading: state.loading,
+        loading: state.frontend.loading,
+        error: state.frontend.error,
         nodesById: state.nodesById,
     };
 }
