@@ -37,47 +37,7 @@ class App extends Component {
                     </div>
                 </Provider>
 
-                {/* <div className="tree">
-                    <ul>
-                        <li>
-                            <div className="node">Parent</div>
-                            <ul>
-                                <li>
-                                    <div className="node">Child</div>
-                                    <ul>
-                                        <li>
-                                            <div className="node">Grand Child</div>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <div className="node">Child</div>
-                                    <ul>
-                                        <li><div className="node">Grand Child</div></li>
-                                        <li>
-                                            <div className="node">Grand Child</div>
-                                            <ul>
-                                                <li>
-                                                    <div className="node">Great Grand Child</div>
-                                                </li>
-                                                <li>
-                                                    <div className="node">Great Grand Child</div>
-                                                </li>
-                                                <li>
-                                                    <div className="node">Great Grand Child</div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><div className="node">Grand Child</div></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div> */}
             </div>
-
-
         );
     }
 }

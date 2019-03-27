@@ -15,7 +15,15 @@ class Node extends Component {
         console.log('remove child');
     }
 
+    renderChild = id => {
+        const { id: parentId } = this.props
+        return (
+            <ConnectedNode key={id} id={id} parentId={parentId} />
+        )
+    }
+
     render() {
+        const { childIds } = this.props
         return (
             <li>
                 <div className="node">
@@ -23,24 +31,26 @@ class Node extends Component {
                         <input type="text" placeholder="Name..." onChange={this.handleNameChange} />
                     </div>
 
-                    <button 
-                        type="button" 
+                    <button
+                        type="button"
                         className="primary"
                         onClick={this.handleAddChildClick}
                     >
                         Add Child
                     </button>
-                    <button 
-                        type="button" 
+                    <button
+                        type="button"
                         className="danger"
                         onClick={this.handleRemoveClick}
                     >
                         Remove
                     </button>
                 </div>
-                {/* <ul> */}
-                {/* children go here */}
-                {/* </ul> */}
+                {childIds && childIds.length > 0 && 
+                    <ul>
+                        {childIds.map(this.renderChild)}
+                    </ul>
+                }
             </li>
         )
     }
