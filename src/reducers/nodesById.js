@@ -1,9 +1,11 @@
-import { ADD_CHILD, CREATE_NODE, DELETE_NODE, CHANGE_NODE_NAME, RECEIVE_NODES, CLEAR_NODES } from '../actions'
+import { ADD_CHILD, REMOVE_CHILD, CREATE_NODE, DELETE_NODE, CHANGE_NODE_NAME, RECEIVE_NODES, CLEAR_NODES, RECEIVE_NODE } from '../actions'
 
 function childIds(state, action) {
     switch (action.type) {
         case ADD_CHILD:
             return [...state, action.childId]
+        case REMOVE_CHILD:
+            return state.filter(id => id !== action.childId)
         default:
             return state
     }
@@ -18,6 +20,7 @@ function node(state, action) {
                 childIds: []
             }
         case ADD_CHILD:
+        case REMOVE_CHILD:
             return {
                 ...state,
                 childIds: childIds(state.childIds, action)
@@ -27,6 +30,8 @@ function node(state, action) {
                 ...state,
                 name: action.name
             }
+        case RECEIVE_NODE:
+            return action.json
         default:
             return state
     }
@@ -52,13 +57,16 @@ export function nodesById(state = {}, action) {
     switch (action.type) {
         case RECEIVE_NODES:
             return {
+                // ...state, // TODO - do i want this?
                 ...action.json
             }
         case CLEAR_NODES:
             return {}
         case CREATE_NODE:
         case ADD_CHILD:
+        case REMOVE_CHILD:
         case CHANGE_NODE_NAME:
+        case RECEIVE_NODE:
             return {
                 ...state,
                 [nodeId]: node(state[nodeId], action)

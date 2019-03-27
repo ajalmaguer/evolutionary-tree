@@ -1,11 +1,16 @@
+import * as api from '../services/api';
+
 export const CHANGE_NODE_NAME = 'CHANGE_NODE_NAME';
 export const CREATE_NODE = 'CREATE_NODE';
 export const DELETE_NODE = 'DELETE_NODE';
 export const ADD_CHILD = 'ADD_CHILD';
+export const REMOVE_CHILD = 'REMOVE_CHILD';
 export const LOADING = 'LOADING';
 export const REQUEST_NODES_ERROR = 'REQUEST_NODES_ERROR';
 export const RECEIVE_NODES = 'RECEIVE_NODES';
+export const RECEIVE_NODE = 'RECEIVE_NODE';
 export const CLEAR_NODES = 'CLEAR_NODES';
+export const SAVE_NODE = 'SAVE_NODE';
 
 // frontend actions
 export const loading = (value) => ({
@@ -38,8 +43,21 @@ export const addChild = (nodeId, childId) => ({
     childId
 });
 
+export const removeChild = (nodeId, childId) => ({
+    type: REMOVE_CHILD,
+    nodeId,
+    childId
+});
+
+
 export const receiveNodes = (json) => ({
     type: RECEIVE_NODES,
+    json
+});
+
+export const receiveNode = (nodeId, json) => ({
+    type: RECEIVE_NODE,
+    nodeId,
     json
 });
 
@@ -50,16 +68,13 @@ export const requestNodeError = (error) => ({
 
 export const clearNodes = () => ({
     type: CLEAR_NODES
-})
+});
 
 export const requestDeleteNode = (id) => {
     return (dispatch) => {
         dispatch(loading(true));
 
-        return new Promise((resolve, reject) => {
-            setTimeout(() => resolve(), 500);
-            // setTimeout(() => reject('Sorry, could not delete node.'), 1000);
-        })
+        return api.deleteNode(id)
             .then(
                 () => {
                     // dispatch(deleteNode(id)); // TODO - remove?
@@ -71,20 +86,6 @@ export const requestDeleteNode = (id) => {
     }
 }
 
-const responseData = {
-    amoeba: {
-        id: 'amoeba',
-        name: 'Amoeba',
-        childIds: [
-            'abc123'
-        ]
-    },
-    abc123: {
-        id: 'abc123',
-        name: 'Snail',
-        childIds: []
-    }
-}
 export const fetchNodes = (id = '') => {
     return (dispatch, getState) => {
         if (getState().nodesById[id]) {
@@ -93,14 +94,38 @@ export const fetchNodes = (id = '') => {
 
         dispatch(loading(true));
 
-        return new Promise(function (resolve, reject) {
-            setTimeout(() => resolve(responseData), 500);
-            // setTimeout(() => reject('There was an error fetching the data.'), 500);
-        })
+        return api.fetchNodes()
             .then(
                 json => dispatch(receiveNodes(json)),
                 error => dispatch(requestNodeError(error))
             );
 
+    }
+}
+
+const isNewNodeId = (id) => (id.indexOf('new') > -1);
+
+export const saveNode = (id, currentState, parentId) => {
+    return (dispatch) => {
+        if (isNewNodeId(id)) {
+            api
+                .createNode({
+                    ...currentState,
+                    parentId
+                })
+                .then(newNode => {
+                    dispatch(removeChild(parentId, id));
+                    dispatch(deleteNode(id));
+                    dispatch(receiveNode(newNode.id, newNode));
+                    dispatch(addChild(parentId, newNode.id));
+                });
+            // Todo - error handling
+
+        } else {
+            api
+                .updateNode(id, currentState)
+                .then(editedNode => dispatch(receiveNode(id, editedNode)));
+            // Todo - error handling
+        }
     }
 }

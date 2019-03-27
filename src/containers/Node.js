@@ -6,17 +6,32 @@ import { Link } from 'react-router-dom';
 import * as actions from '../actions';
 
 class Node extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { name: props.name };
+    }
+
     componentDidMount() {
         this.nameInput.focus()
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.id !== prevProps.id) {
+            this.setState({ name: this.props.name });
+        }
     }
 
     isNew = (id) => {
         return id.indexOf('new') > -1
     }
 
+    canSave = () => {
+        return this.props.name !== this.state.name;
+    }
+
     handleNameChange = (e) => {
-        const { changeNodeName, id } = this.props;
-        changeNodeName(id, e.target.value);
+        this.setState({ name: e.target.value });
     }
 
     handleAddChildClick = () => {
@@ -35,6 +50,11 @@ class Node extends Component {
         requestDeleteNode(id);
     }
 
+    handleClickSave = () => {
+        const { saveNode, id, parentId } = this.props;
+        saveNode(id, this.state, parentId);
+    }
+
     renderChild = id => {
         const { id: parentId } = this.props
         return (
@@ -43,7 +63,7 @@ class Node extends Component {
     }
 
     render() {
-        const { childIds, parentId, name, id } = this.props
+        const { childIds, parentId, id } = this.props
         return (
             <li>
                 <div className="node">
@@ -51,7 +71,7 @@ class Node extends Component {
                         <input
                             type="text"
                             placeholder="Name..."
-                            value={name}
+                            value={this.state.name}
                             onChange={this.handleNameChange}
                             ref={(input) => this.nameInput = input}
                         />
@@ -77,13 +97,24 @@ class Node extends Component {
                         </Link>
                     }
 
-                    <button
-                        type="button"
-                        className="primary"
-                        onClick={this.handleAddChildClick}
-                    >
-                        Add Child
-                    </button>
+                    {this.canSave(id) &&
+                        <button
+                            type="button"
+                            className="primary"
+                            onClick={this.handleClickSave}
+                        >
+                            Save
+                        </button>
+                    }
+                    {!this.isNew(id) &&
+                        <button
+                            type="button"
+                            className="primary"
+                            onClick={this.handleAddChildClick}
+                        >
+                            Add Child
+                        </button>
+                    }
                 </div>
                 {childIds && childIds.length > 0 &&
                     <ul>
