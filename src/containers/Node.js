@@ -16,7 +16,9 @@ class Node extends Component {
     }
 
     handleRemoveClick = () => {
-        console.log('remove child');
+        const { removeChild, deleteNode, id, parentId } = this.props;
+        removeChild(parentId, id);
+        deleteNode(id);
     }
 
     renderChild = id => {
@@ -27,7 +29,8 @@ class Node extends Component {
     }
 
     render() {
-        const { childIds } = this.props
+        console.log('this.props =', this.props);
+        const { childIds, parentId } = this.props
         return (
             <li>
                 <div className="node">
@@ -42,13 +45,15 @@ class Node extends Component {
                     >
                         Add Child
                     </button>
-                    <button
-                        type="button"
-                        className="danger"
-                        onClick={this.handleRemoveClick}
-                    >
-                        Remove
-                    </button>
+                    {typeof parentId !== 'undefined' &&
+                        <button
+                            type="button"
+                            className="danger"
+                            onClick={this.handleRemoveClick}
+                        >
+                            Remove Me
+                        </button>
+                    }
                 </div>
                 {childIds && childIds.length > 0 &&
                     <ul>
