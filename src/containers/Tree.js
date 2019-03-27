@@ -1,33 +1,51 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import Node from './Node';
+import { fetchNodes } from '../actions';
 
 class Tree extends Component {
-    nodesToRender = () => {
-        const { nodesById, match: { params } } = this.props;
-        return Object.keys(nodesById).length > 0;
+    componentDidMount() {
+        this.props.fetchNodes();
     }
 
     render() {
-        console.log('Tree > this.props =', this.props);
-        const { match: { params } } = this.props;
+
+        const { match: { params }, loading, nodesById } = this.props;
+
+        if (loading) {
+            return (
+                <div style={{ textAlign: 'center' }}>Loading...</div>
+            )
+        }
+
+        if (!params.id) {
+            return (
+                <div className="tree" >
+                    <ul>
+                        <Node id={'amoeba'} />
+                    </ul>
+                </div>
+            )
+        }
+
+        if (params.id in nodesById) {
+            return (
+                <div className="tree" >
+                    <ul>
+                        <Node id={params.id} />
+                    </ul>
+                </div>
+            )
+        }
 
         return (
-            <div>
-                {this.nodesToRender() &&
-                    <div className="tree" >
-                        <ul>
-                            <Node id={params.id || 'new_0'} />
-                        </ul>
-                    </div>
-                }
-                {!this.nodesToRender() &&
-                    <div style={{textAlign: 'center'}}>
-                        No Data
-                    </div>
-                }
+            <div style={{ textAlign: 'center' }}>
+                No data found...
+                {' '}
+                <Link to="/">Go Home</Link>
             </div>
-
         )
 
     }
@@ -35,8 +53,13 @@ class Tree extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        nodesById: state.nodesById
+        loading: state.loading,
+        nodesById: state.nodesById,
     };
 }
-const connectedTree = connect(mapStateToProps)(Tree);
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    fetchNodes: (id) => dispatch(fetchNodes(id))
+})
+
+const connectedTree = connect(mapStateToProps, mapDispatchToProps)(Tree);
 export default connectedTree

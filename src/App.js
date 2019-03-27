@@ -4,13 +4,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import './App.css';
 import { configureStore } from './configureStore';
-import { fetchNodes } from './actions';
 import Tree from './containers/Tree';
 
 
 const store = configureStore();
-
-store.dispatch(fetchNodes('id'));
 
 
 class App extends Component {

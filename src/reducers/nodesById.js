@@ -55,7 +55,7 @@ export function nodesById(state = {}, action) {
     switch (action.type) {
         case RECEIVE_NODES:
             return {
-                ...action.nodes
+                ...action.json
             }
         case CREATE_NODE:
         case ADD_CHILD:
