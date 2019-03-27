@@ -20,7 +20,7 @@ class Tree extends Component {
             )
         }
 
-        if (!params.id) {
+        if (!params.id && Object.keys(nodesById).length > 0) {
             return (
                 <div className="tree" >
                     <ul>
