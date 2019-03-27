@@ -1,15 +1,21 @@
 /* from https://codepen.io/Pestov/pen/BLpgm */
 
 /*Now the CSS*/
+
 * {
     margin: 0;
     padding: 0;
 }
 
+.tree {
+    overflow-x: scroll;
+    /* TODO - made width dynamic */
+    width: 10000px;
+}
+
 .tree ul {
     padding-top: 20px;
     position: relative;
-
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -21,7 +27,6 @@
     list-style-type: none;
     position: relative;
     padding: 20px 5px 0 5px;
-
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -29,8 +34,7 @@
 
 /*We will use ::before and ::after to draw the connectors*/
 
-.tree li::before,
-.tree li::after {
+.tree li::before, .tree li::after {
     content: '';
     position: absolute;
     top: 0;
@@ -48,24 +52,26 @@
 
 /*We need to remove left-right connectors from elements without 
 any siblings*/
-.tree li:only-child::after,
-.tree li:only-child::before {
+
+.tree li:only-child::after, .tree li:only-child::before {
     display: none;
 }
 
 /*Remove space from the top of single children*/
+
 .tree li:only-child {
     padding-top: 0;
 }
 
 /*Remove left connector from first child and 
 right connector from last child*/
-.tree li:first-child::before,
-.tree li:last-child::after {
+
+.tree li:first-child::before, .tree li:last-child::after {
     border: 0 none;
 }
 
 /*Adding back the vertical connector to the last nodes*/
+
 .tree li:last-child::before {
     border-right: 1px solid #ccc;
     border-radius: 0 5px 0 0;
@@ -80,6 +86,7 @@ right connector from last child*/
 }
 
 /*Time to add downward connectors from parents*/
+
 .tree ul ul::before {
     content: '';
     position: absolute;
@@ -90,38 +97,59 @@ right connector from last child*/
     height: 20px;
 }
 
-.tree li a {
+.tree li div {
     border: 1px solid #ccc;
     padding: 5px 10px;
     text-decoration: none;
     color: #666;
     font-family: arial, verdana, tahoma;
-    font-size: 11px;
     display: inline-block;
-
+    min-height: 75px;
+    min-width: 100px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
 }
 
+.tree li div button {
+    margin: 10px;
+    border-radius: 3px;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 8px;
+    text-decoration: none!important;
+    text-transform: uppercase;
+    transition: color .3s, border .3s;
+    cursor: pointer;
+}
+
 /*Time for some hover effects*/
+
 /*We will apply the hover effect the the lineage of the element also*/
-.tree li a:hover,
-.tree li a:hover+ul li a {
+
+.tree li div button.primary:hover {
+    color: #764abc;
+    border: 1px solid #764abc;
+}
+
+.tree li div button.danger:hover {
+    color: #d82c2c;
+    border: 1px solid #d82c2c;
+}
+
+.tree li div:hover, .tree li div:hover+ul li div {
     background: #c8e4f8;
     color: #000;
     border: 1px solid #94a0b4;
 }
 
 /*Connector styles on hover*/
-.tree li a:hover+ul li::after,
-.tree li a:hover+ul li::before,
-.tree li a:hover+ul::before,
-.tree li a:hover+ul ul::before {
+
+.tree li div:hover+ul li::after, .tree li div:hover+ul li::before, .tree li div:hover+ul::before, .tree li div:hover+ul ul::before {
     border-color: #94a0b4;
 }
 
