@@ -3,12 +3,13 @@ export const CREATE_NODE = 'CREATE_NODE';
 export const DELETE_NODE = 'DELETE_NODE';
 export const ADD_CHILD = 'ADD_CHILD';
 export const REMOVE_CHILD = 'REMOVE_CHILD';
+export const RECEIVE_NODES = 'RECEIVE_NODES';
 
 export const changeNodeName = (nodeId, name) => ({
     type: CHANGE_NODE_NAME,
     nodeId,
     name
-})
+});
 
 let nextId = 0
 export const createNode = () => ({
@@ -31,4 +32,9 @@ export const removeChild = (nodeId, childId) => ({
     type: REMOVE_CHILD,
     nodeId,
     childId
+});
+
+export const receiveNodes = (nodes) => ({
+    type: RECEIVE_NODES,
+    nodes
 });
