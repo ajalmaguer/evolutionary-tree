@@ -10,6 +10,10 @@ class Node extends Component {
         this.nameInput.focus()
     }
 
+    isNew = (id) => {
+        return id.indexOf('new') > -1
+    }
+
     handleNameChange = (e) => {
         const { changeNodeName, id } = this.props;
         changeNodeName(id, e.target.value);
@@ -54,7 +58,7 @@ class Node extends Component {
                         />
                     </div>
 
-                    {typeof parentId !== 'undefined' &&
+                    {parentId &&
                         <button
                             type="button"
                             className="danger"
@@ -64,7 +68,7 @@ class Node extends Component {
                         </button>
                     }
 
-                    {typeof parentId !== 'undefined' &&
+                    {parentId && !this.isNew(id) && 
                         <Link to={id}>
                             <button
                                 type="button"
