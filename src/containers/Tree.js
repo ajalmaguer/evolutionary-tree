@@ -7,7 +7,16 @@ import { fetchNodes } from '../actions';
 
 class Tree extends Component {
     componentDidMount() {
-        this.props.fetchNodes();
+        const { match: { params } } = this.props
+        this.props.fetchNodes(params.id);
+    }
+
+    componentDidUpdate(prevProps) {
+        const { match: { params: prevParams } } = prevProps;
+        const { match: { params } } = this.props
+        if (params.id !== prevParams.id) {
+            this.props.fetchNodes(params.id);
+        }
     }
 
     render() {
@@ -16,13 +25,13 @@ class Tree extends Component {
 
         if (loading) {
             return (
-                <div style={{ textAlign: 'center' }}>Loading...</div>
+                <div className="tree">Loading...</div>
             )
         }
 
         if (error) {
             return (
-                <div style={{ textAlign: 'center' }}>
+                <div className="tree">
                     {error}
                 </div>
             )
@@ -49,7 +58,7 @@ class Tree extends Component {
         }
 
         return (
-            <div style={{ textAlign: 'center' }}>
+            <div className="tree">
                 No data found...
                 {' '}
                 <Link to="/">Go Home</Link>

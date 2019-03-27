@@ -31,8 +31,7 @@ class Node extends Component {
     }
 
     handleRemoveClick = () => {
-        const { removeChild, deleteNode, id, parentId } = this.props;
-        removeChild(parentId, id);
+        const { deleteNode, id } = this.props;
         deleteNode(id);
     }
 
@@ -58,7 +57,7 @@ class Node extends Component {
                         />
                     </div>
 
-                    {parentId &&
+                    {!parentId &&
                         <button
                             type="button"
                             className="danger"
@@ -68,7 +67,7 @@ class Node extends Component {
                         </button>
                     }
 
-                    {parentId && !this.isNew(id) && 
+                    {parentId && !this.isNew(id) &&
                         <Link to={id}>
                             <button
                                 type="button"

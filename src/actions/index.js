@@ -2,7 +2,6 @@ export const CHANGE_NODE_NAME = 'CHANGE_NODE_NAME';
 export const CREATE_NODE = 'CREATE_NODE';
 export const DELETE_NODE = 'DELETE_NODE';
 export const ADD_CHILD = 'ADD_CHILD';
-export const REMOVE_CHILD = 'REMOVE_CHILD';
 export const REQUEST_NODES_BY_ID = 'REQUEST_NODES_BY_ID';
 export const REQUEST_NODES_ERROR = 'REQUEST_NODES_ERROR';
 export const RECEIVE_NODES = 'RECEIVE_NODES';
@@ -26,12 +25,6 @@ export const deleteNode = (nodeId) => ({
 
 export const addChild = (nodeId, childId) => ({
     type: ADD_CHILD,
-    nodeId,
-    childId
-});
-
-export const removeChild = (nodeId, childId) => ({
-    type: REMOVE_CHILD,
     nodeId,
     childId
 });
@@ -65,9 +58,12 @@ const responseData = {
         childIds: []
     }
 }
-export const fetchNodes = (id) => {
-    return (dispatch) => {
-        console.log('getting posts for id =', id);
+export const fetchNodes = (id = '') => {
+    return (dispatch, getState) => {
+        if (getState().nodesById[id]) {
+            return Promise.resolve();
+        }
+
         dispatch(requestNodesById(id));
 
         return new Promise(function (resolve, reject) {
