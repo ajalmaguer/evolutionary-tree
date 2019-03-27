@@ -1,16 +1,8 @@
-export const SELECT_NODE = 'SELECT_NODE';
-
 export const CHANGE_NODE_NAME = 'CHANGE_NODE_NAME';
 export const CREATE_NODE = 'CREATE_NODE';
 export const DELETE_NODE = 'DELETE_NODE';
 export const ADD_CHILD = 'ADD_CHILD';
 export const REMOVE_CHILD = 'REMOVE_CHILD';
-
-
-export const selectNode = (id) => ({
-    type: SELECT_NODE,
-    id
-});
 
 export const changeNodeName = (nodeId, name) => ({
     type: CHANGE_NODE_NAME,

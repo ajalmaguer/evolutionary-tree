@@ -1,6 +1,7 @@
 import React from 'react'
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import * as actions from '../actions';
 
@@ -14,6 +15,11 @@ class Node extends Component {
         const { createNode, addChild, id: parentId } = this.props;
         const childId = createNode().nodeId;
         addChild(parentId, childId);
+    }
+
+    handleSelectNodeClick = () => {
+        const { id, selectNode } = this.props;
+        selectNode(id);
     }
 
     handleRemoveClick = () => {
@@ -30,7 +36,7 @@ class Node extends Component {
     }
 
     render() {
-        const { childIds, parentId, name } = this.props
+        const { childIds, parentId, name, id } = this.props
         return (
             <li>
                 <div className="node">
@@ -38,13 +44,6 @@ class Node extends Component {
                         <input type="text" placeholder="Name..." value={name} onChange={this.handleNameChange} />
                     </div>
 
-                    <button
-                        type="button"
-                        className="primary"
-                        onClick={this.handleAddChildClick}
-                    >
-                        Add Child
-                    </button>
                     {typeof parentId !== 'undefined' &&
                         <button
                             type="button"
@@ -54,6 +53,24 @@ class Node extends Component {
                             Remove Me
                         </button>
                     }
+
+                    {typeof parentId !== 'undefined' &&
+                        <Link to={id}>
+                            <button
+                                type="button"
+                            >
+                                Make Me Root
+                            </button>
+                        </Link>
+                    }
+
+                    <button
+                        type="button"
+                        className="primary"
+                        onClick={this.handleAddChildClick}
+                    >
+                        Add Child
+                    </button>
                 </div>
                 {childIds && childIds.length > 0 &&
                     <ul>
