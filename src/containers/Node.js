@@ -6,8 +6,10 @@ class Node extends Component {
     render() {
         return (
             <li>
-                <div>
-                    <h4>Node information goes here</h4>
+                <div className="node">
+                    <div>
+                        <input type="text" placeholder="Name..." />
+                    </div>
                     
                     <button type="button" className="primary">Add Child</button>
                     <button type="button" className="danger">Remove</button>

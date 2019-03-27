@@ -97,7 +97,14 @@ right connector from last child*/
     height: 20px;
 }
 
-.tree li div {
+.tree div.node input {
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    padding: 5px 0px;
+}
+
+.tree li div.node {
     border: 1px solid #ccc;
     padding: 5px 10px;
     text-decoration: none;
@@ -114,7 +121,7 @@ right connector from last child*/
     -moz-transition: all 0.5s;
 }
 
-.tree li div button {
+.tree li div.node button {
     margin: 10px;
     border-radius: 3px;
     display: inline-block;
@@ -131,17 +138,17 @@ right connector from last child*/
 
 /*We will apply the hover effect the the lineage of the element also*/
 
-.tree li div button.primary:hover {
+.tree li div.node button.primary:hover {
     color: #764abc;
     border: 1px solid #764abc;
 }
 
-.tree li div button.danger:hover {
+.tree li div.node button.danger:hover {
     color: #d82c2c;
     border: 1px solid #d82c2c;
 }
 
-.tree li div:hover, .tree li div:hover+ul li div {
+.tree li div.node:hover, .tree li div.node:hover+ul li div.node {
     background: #c8e4f8;
     color: #000;
     border: 1px solid #94a0b4;
@@ -149,7 +156,7 @@ right connector from last child*/
 
 /*Connector styles on hover*/
 
-.tree li div:hover+ul li::after, .tree li div:hover+ul li::before, .tree li div:hover+ul::before, .tree li div:hover+ul ul::before {
+.tree li div.node:hover+ul li::after, .tree li div.node:hover+ul li::before, .tree li div.node:hover+ul::before, .tree li div.node:hover+ul ul::before {
     border-color: #94a0b4;
 }
 

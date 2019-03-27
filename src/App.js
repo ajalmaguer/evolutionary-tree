@@ -5,42 +5,42 @@ import Node from './containers/Node';
 class App extends Component {
     render() {
         return (
-            <div style={{textAlign: "center"}}>
-                <h1>Evolutionary Tree</h1>
+            <div>
+                <h1 style={{textAlign: "center"}}>Evolutionary Tree</h1>
 
-                <div className="tree">
+                <div className="node" className="tree">
                     <ul>
                         <li>
-                            <div>Parent</div>
+                            <div className="node">Parent</div>
                             <ul>
                                 <Node />
                                 <li>
-                                    <div>Child</div>
+                                    <div className="node">Child</div>
                                     <ul>
                                         <li>
-                                            <div>Grand Child</div>
+                                            <div className="node">Grand Child</div>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <div>Child</div>
+                                    <div className="node">Child</div>
                                     <ul>
-                                        <li><div>Grand Child</div></li>
+                                        <li><div className="node">Grand Child</div></li>
                                         <li>
-                                            <div>Grand Child</div>
+                                            <div className="node">Grand Child</div>
                                             <ul>
                                                 <li>
-                                                    <div>Great Grand Child</div>
+                                                    <div className="node">Great Grand Child</div>
                                                 </li>
                                                 <li>
-                                                    <div>Great Grand Child</div>
+                                                    <div className="node">Great Grand Child</div>
                                                 </li>
                                                 <li>
-                                                    <div>Great Grand Child</div>
+                                                    <div className="node">Great Grand Child</div>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><div>Grand Child</div></li>
+                                        <li><div className="node">Grand Child</div></li>
                                     </ul>
                                 </li>
                             </ul>
