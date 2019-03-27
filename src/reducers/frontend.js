@@ -1,4 +1,4 @@
-import { REQUEST_NODES_BY_ID, RECEIVE_NODES, REQUEST_NODES_ERROR } from '../actions';
+import { LOADING, RECEIVE_NODES, REQUEST_NODES_ERROR } from '../actions';
 
 export function frontend(
     state = {
@@ -8,10 +8,10 @@ export function frontend(
     action
 ) {
     switch (action.type) {
-        case REQUEST_NODES_BY_ID:
+        case LOADING:
             return {
                 ...state,
-                loading: true,
+                loading: action.value,
                 error: ''
             };
         case RECEIVE_NODES:

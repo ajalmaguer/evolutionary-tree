@@ -2,10 +2,19 @@ export const CHANGE_NODE_NAME = 'CHANGE_NODE_NAME';
 export const CREATE_NODE = 'CREATE_NODE';
 export const DELETE_NODE = 'DELETE_NODE';
 export const ADD_CHILD = 'ADD_CHILD';
-export const REQUEST_NODES_BY_ID = 'REQUEST_NODES_BY_ID';
+export const LOADING = 'LOADING';
 export const REQUEST_NODES_ERROR = 'REQUEST_NODES_ERROR';
 export const RECEIVE_NODES = 'RECEIVE_NODES';
+export const CLEAR_NODES = 'CLEAR_NODES';
 
+// frontend actions
+export const loading = (value) => ({
+    type: LOADING,
+    value
+});
+
+
+// node actions
 export const changeNodeName = (nodeId, name) => ({
     type: CHANGE_NODE_NAME,
     nodeId,
@@ -29,11 +38,6 @@ export const addChild = (nodeId, childId) => ({
     childId
 });
 
-export const requestNodesById = (nodeId) => ({
-    type: REQUEST_NODES_BY_ID,
-    nodeId
-})
-
 export const receiveNodes = (json) => ({
     type: RECEIVE_NODES,
     json
@@ -43,6 +47,29 @@ export const requestNodeError = (error) => ({
     type: REQUEST_NODES_ERROR,
     error
 });
+
+export const clearNodes = () => ({
+    type: CLEAR_NODES
+})
+
+export const requestDeleteNode = (id) => {
+    return (dispatch) => {
+        dispatch(loading(true));
+
+        return new Promise((resolve, reject) => {
+            setTimeout(() => resolve(), 500);
+            // setTimeout(() => reject('Sorry, could not delete node.'), 1000);
+        })
+            .then(
+                () => {
+                    // dispatch(deleteNode(id)); // TODO - remove?
+                    dispatch(loading(false));
+                    dispatch(clearNodes());
+                },
+                error => dispatch(requestNodeError(error))
+            );;
+    }
+}
 
 const responseData = {
     amoeba: {
@@ -64,7 +91,7 @@ export const fetchNodes = (id = '') => {
             return Promise.resolve();
         }
 
-        dispatch(requestNodesById(id));
+        dispatch(loading(true));
 
         return new Promise(function (resolve, reject) {
             setTimeout(() => resolve(responseData), 500);

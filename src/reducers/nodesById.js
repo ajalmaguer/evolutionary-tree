@@ -1,4 +1,4 @@
-import { ADD_CHILD, CREATE_NODE, DELETE_NODE, CHANGE_NODE_NAME, RECEIVE_NODES } from '../actions'
+import { ADD_CHILD, CREATE_NODE, DELETE_NODE, CHANGE_NODE_NAME, RECEIVE_NODES, CLEAR_NODES } from '../actions'
 
 function childIds(state, action) {
     switch (action.type) {
@@ -54,6 +54,8 @@ export function nodesById(state = {}, action) {
             return {
                 ...action.json
             }
+        case CLEAR_NODES:
+            return {}
         case CREATE_NODE:
         case ADD_CHILD:
         case CHANGE_NODE_NAME:

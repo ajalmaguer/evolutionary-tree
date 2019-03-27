@@ -31,8 +31,8 @@ class Node extends Component {
     }
 
     handleRemoveClick = () => {
-        const { deleteNode, id } = this.props;
-        deleteNode(id);
+        const { requestDeleteNode, id } = this.props;
+        requestDeleteNode(id);
     }
 
     renderChild = id => {
