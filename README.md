@@ -70,3 +70,10 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 ### References
 - https://codepen.io/Pestov/pen/BLpgm
 - https://github.com/reduxjs/redux/tree/master/examples/tree-view
+
+## Next Steps
+- [ ] real restful api
+- [ ] serve UI
+- [ ] connect real api to ui
+- [ ] enter key to save
+- [ ] stop save spamming
