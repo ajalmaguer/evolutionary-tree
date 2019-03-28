@@ -123,6 +123,12 @@ function deleteNode(req, res) {
         .findById(nodeId)
         .then(doesNodeExist)
         .then(node => {
+            if (node.path !== null) {
+                return node;
+            }
+            throw { status: 405, message: 'cant delete root node' }
+        })
+        .then(node => {
             nodeToDelete = node;
             const parentId = getParentNodeId(nodeToDelete);
             return Node.findById(parentId)
