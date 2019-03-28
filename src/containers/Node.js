@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import * as actions from '../actions';
+import RemoveButton from '../components/RemoveButton';
 
 class Node extends Component {
 
@@ -78,13 +79,7 @@ class Node extends Component {
                     </div>
 
                     {!parentId && path !== null &&
-                        <button
-                            type="button"
-                            className="danger"
-                            onClick={this.handleRemoveClick}
-                        >
-                            Remove Me
-                        </button>
+                        <RemoveButton remove={this.handleRemoveClick} id={id} />
                     }
 
                     {parentId && !this.isNew(id) &&

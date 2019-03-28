@@ -16,7 +16,7 @@ class App extends Component {
             <div>
                 <div id="title">
                     <h1>Totally Fake Evolutionary Tree</h1>
-                    <div>Built as a demo project by AJ Almaguer. Source code <a href="https://github.com/ajalmaguer/evolutionary-tree" target="_blank">here.</a></div>
+                    <div>Built as a demo project by AJ Almaguer. Source code <a href="https://github.com/ajalmaguer/evolutionary-tree" rel="noopener noreferrer" target="_blank">here.</a></div>
                 </div>
 
                 <Provider store={store}>
