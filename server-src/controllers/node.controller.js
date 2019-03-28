@@ -30,20 +30,16 @@ function arrayToObject(arr = [], key = '_id') {
 }
 
 function getAllNodes(req, res) {
-    let rootNode;
-
     Node
-        .findOne({ path: null })
-        .lean()
-        .then(node => {
-            rootNode = node;
-            const path = new RegExp(`,${node._id},`);
-            return Node.find({ path }).lean();
-        })
+        .find({})
+        .sort({ path: 1 })
         .then(nodes => {
+            let rootNode = nodes[0];
+            rootNode = rootNode.toObject();
+            rootNode.id = rootNode._id;
             const payload = {
                 rootNode,
-                nodesById: arrayToObject([rootNode, ...nodes])
+                nodesById: arrayToObject([...nodes])
             };
             res.json(payload);
         })

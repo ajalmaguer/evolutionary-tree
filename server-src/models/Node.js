@@ -9,4 +9,6 @@ const nodeSchema = new Schema(
     }
 );
 
+nodeSchema.index({ path: 1 });
+
 module.exports = mongoose.model('Node', nodeSchema);
