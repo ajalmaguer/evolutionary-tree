@@ -8,7 +8,7 @@ const dummy = (req, res) => {res.send('works')};
 router.post('/nodes', dummy);
 router.get('/nodes', nodeController.getAllNodes);
 router.get('/nodes/:id', nodeController.getNodeById);
-router.put('/nodes/:id', dummy);
+router.put('/nodes/:id', nodeController.updateNode);
 router.delete('/nodes/:id', dummy);
 
 module.exports = router;

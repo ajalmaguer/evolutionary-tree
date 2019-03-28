@@ -1,4 +1,5 @@
 const Node = require('../models/Node');
+const sanitize = require('mongo-sanitize');
 
 function arrayToObject(arr = [], key = '_id') {
     const output = {};
@@ -58,7 +59,26 @@ function getNodeById(req, res) {
         });
 }
 
+function updateNode(req, res) {
+    Node
+        .findOne({ _id: req.params.id })
+        .then(node => {
+            if (!node) {
+                return res.status(404).json('not found');
+            }
+            node.name = sanitize(req.body.name);
+            return node.save();
+        })
+        .then(node => res.json(node))
+        .catch(err => {
+            console.log('err =', err);
+            res.status(500).json('error')
+        });
+
+}
+
 module.exports = {
     getAllNodes,
-    getNodeById
+    getNodeById,
+    updateNode
 }

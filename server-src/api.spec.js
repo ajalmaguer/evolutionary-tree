@@ -13,7 +13,7 @@ const rp = (method, url, body) => {
 describe('#getNodes', () => {
     test('returns all nodes with amoeba as root node', () => {
         return rp('GET', '/nodes')
-            .then(res => expect(res).toMatchSnapshot());
+            .then(res => expect(res.rootNode.name).toEqual('Amoeba'));
     });
 });
 
@@ -23,7 +23,21 @@ describe('#getNodesById', () => {
         return rp('GET', '/nodes/' + id)
             .then(res => {
                 expect(res.rootNode.id).toEqual(id);
-                expect(res).toMatchSnapshot();
+            });
+    });
+});
+
+describe('#updateNode', () => {
+    test('can update a nodes name', () => {
+        expect.assertions(2)
+        const id = '5c9c27c1ab34d91ecd77027d';
+        return rp('PUT', '/nodes/' + id, {name: 'Not Bacteria'})
+            .then(res => {
+                expect(res.name).toEqual('Not Bacteria');
+                return rp('PUT', '/nodes/' + id, {name: 'Bacteria'})
+            })
+            .then(res => {
+                expect(res.name).toEqual('Bacteria');
             });
     });
 });

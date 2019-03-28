@@ -3,6 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 const helmet = require('helmet');
 const config = require('./server-src/config/env');
+const bodyParser = require('body-parser');
 require('./server-src/config/configDatabase');
 
 const app = express();
@@ -10,7 +11,7 @@ const app = express();
 // setup
 app.use(logger('dev'));
 app.use(helmet());
-
+app.use(bodyParser.json());
 
 
 // routes
