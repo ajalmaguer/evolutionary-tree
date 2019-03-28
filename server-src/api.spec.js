@@ -11,9 +11,20 @@ const rp = (method, url, body) => {
 };
 
 describe('#getNodes', () => {
-    test('we can get all nodes', () => {
+    test('returns all nodes with amoeba as root node', () => {
         return rp('GET', '/nodes')
-            .then(res => console.log('res =', res));
+            .then(res => expect(res).toMatchSnapshot());
+    });
+});
+
+describe('#getNodesById', () => {
+    test('returns child node and all its children', () => {
+        const id = '5c9c27c1ab34d91ecd77027d';
+        return rp('GET', '/nodes/' + id)
+            .then(res => {
+                expect(res.rootNode.id).toEqual(id);
+                expect(res).toMatchSnapshot();
+            });
     });
 });
 

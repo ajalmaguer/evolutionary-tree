@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#getNodes returns all nodes with amoeba as root node 1`] = `
+Object {
+  "nodesById": Object {
+    "5c9c27c1ab34d91ecd77027b": Object {
+      "__v": 1,
+      "_id": "5c9c27c1ab34d91ecd77027b",
+      "childIds": Array [
+        "5c9c27c1ab34d91ecd77027c",
+        "5c9c27c1ab34d91ecd77027d",
+      ],
+      "id": "5c9c27c1ab34d91ecd77027b",
+      "name": "Amoeba",
+      "path": null,
+    },
+    "5c9c27c1ab34d91ecd77027c": Object {
+      "__v": 0,
+      "_id": "5c9c27c1ab34d91ecd77027c",
+      "childIds": Array [],
+      "id": "5c9c27c1ab34d91ecd77027c",
+      "name": "Virus",
+      "path": ",5c9c27c1ab34d91ecd77027b,",
+    },
+    "5c9c27c1ab34d91ecd77027d": Object {
+      "__v": 1,
+      "_id": "5c9c27c1ab34d91ecd77027d",
+      "childIds": Array [
+        "5c9c27c1ab34d91ecd77027e",
+      ],
+      "id": "5c9c27c1ab34d91ecd77027d",
+      "name": "Bacteria",
+      "path": ",5c9c27c1ab34d91ecd77027b,",
+    },
+    "5c9c27c1ab34d91ecd77027e": Object {
+      "__v": 0,
+      "_id": "5c9c27c1ab34d91ecd77027e",
+      "childIds": Array [],
+      "id": "5c9c27c1ab34d91ecd77027e",
+      "name": "Algae",
+      "path": ",5c9c27c1ab34d91ecd77027b,5c9c27c1ab34d91ecd77027d,",
+    },
+  },
+  "rootNode": Object {
+    "__v": 1,
+    "_id": "5c9c27c1ab34d91ecd77027b",
+    "childIds": Array [
+      "5c9c27c1ab34d91ecd77027c",
+      "5c9c27c1ab34d91ecd77027d",
+    ],
+    "id": "5c9c27c1ab34d91ecd77027b",
+    "name": "Amoeba",
+    "path": null,
+  },
+}
+`;
+
+exports[`#getNodesById returns child node and all its children 1`] = `
+Object {
+  "nodesById": Object {
+    "5c9c27c1ab34d91ecd77027d": Object {
+      "__v": 1,
+      "_id": "5c9c27c1ab34d91ecd77027d",
+      "childIds": Array [
+        "5c9c27c1ab34d91ecd77027e",
+      ],
+      "id": "5c9c27c1ab34d91ecd77027d",
+      "name": "Bacteria",
+      "path": ",5c9c27c1ab34d91ecd77027b,",
+    },
+    "5c9c27c1ab34d91ecd77027e": Object {
+      "__v": 0,
+      "_id": "5c9c27c1ab34d91ecd77027e",
+      "childIds": Array [],
+      "id": "5c9c27c1ab34d91ecd77027e",
+      "name": "Algae",
+      "path": ",5c9c27c1ab34d91ecd77027b,5c9c27c1ab34d91ecd77027d,",
+    },
+  },
+  "rootNode": Object {
+    "__v": 1,
+    "_id": "5c9c27c1ab34d91ecd77027d",
+    "childIds": Array [
+      "5c9c27c1ab34d91ecd77027e",
+    ],
+    "id": "5c9c27c1ab34d91ecd77027d",
+    "name": "Bacteria",
+    "path": ",5c9c27c1ab34d91ecd77027b,",
+  },
+}
+`;
