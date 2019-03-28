@@ -14,7 +14,9 @@ class Node extends Component {
     }
 
     componentDidMount() {
-        this.nameInput.focus()
+        if (this.isNew(this.props.id)) {
+            this.nameInput.focus()
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
