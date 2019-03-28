@@ -1,35 +1,6 @@
-import dumbFetch from 'cross-fetch';
+import { fetch } from './fetch';
 
-const fetch = (method, url, body) => {
-    return dumbFetch(
-        url,
-        {
-            method: method,
-            body: JSON.stringify(body),
-            headers: {
-                "Content-Type": "application/json"
-            },
-        })
-        .then((res) => {
-            return res.json();
-        });
-}
 
-let nextId = 124;
-const responseData = {
-    amoeba: {
-        id: 'amoeba',
-        name: 'Amoeba',
-        childIds: [
-            'abc123'
-        ]
-    },
-    abc123: {
-        id: 'abc123',
-        name: 'Snail',
-        childIds: []
-    }
-}
 export const fetchNodes = (id) => {
     if (!id) {
         return fetch('GET', '/api/nodes');
@@ -37,37 +8,8 @@ export const fetchNodes = (id) => {
     return fetch('GET', '/api/nodes/' + id);
 };
 
-export const deleteNode = () => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => resolve(), 500);
-        // setTimeout(() => reject('Sorry, could not delete node.'), 1000);
-    });
-};
+export const deleteNode = (id) => fetch('DELETE', '/api/nodes/' + id);
 
-export const updateNode = (id, payload) => {
-    return new Promise((resolve, reject) => {
-        const editedNode = {
-            ...responseData[id],
-            ...payload
-        };
-        responseData[id] = editedNode;
-        resolve(editedNode);
-    });
-}
+export const updateNode = (id, payload) => fetch('PUT', '/api/nodes/' + id, payload);
 
-export const createNode = (payload) => {
-    return new Promise((resolve, reject) => {
-        const newNode = {
-            id: `abc${nextId++}`,
-            name: payload.name,
-            childIds: []
-        }
-        responseData[newNode.id] = newNode;
-        responseData[payload.parentId].childIds = [
-            ...responseData[payload.parentId].childIds,
-            newNode.id
-        ];
-
-        resolve(newNode);
-    });
-}
+export const createNode = (payload) => fetch('POST', '/api/nodes', payload);
