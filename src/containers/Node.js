@@ -63,7 +63,7 @@ class Node extends Component {
     }
 
     render() {
-        const { childIds, parentId, id } = this.props
+        const { childIds, parentId, id, path } = this.props
         return (
             <li>
                 <div className="node">
@@ -77,7 +77,7 @@ class Node extends Component {
                         />
                     </div>
 
-                    {!parentId &&
+                    {!parentId && path !== null &&
                         <button
                             type="button"
                             className="danger"
