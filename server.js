@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const helmet = require('helmet');
-const config = require('./server-src/config');
+const config = require('./server-src/config/env');
+require('./server-src/config/configDatabase');
 
 const app = express();
 
@@ -13,9 +14,7 @@ app.use(helmet());
 
 
 // routes
-app.use('/api', function (req, res) {
-    res.send('api works?');
-});
+app.use('/api', require('./server-src/apiRoutes'));
 
 app.use(express.static(path.join(__dirname, 'build')));
 
