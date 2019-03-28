@@ -1,10 +1,19 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I made this app to "show off" my MERN stack skillz.
+
 
 ## Getting Started
 ```bash
 mongod # make sure mongo is running
 npm install
 npm start
+```
+
+or to develop 
+
+```bash
+mongod # make sure mongo is running
+npm install
+npm run dev
 ```
 
 ## References
@@ -18,6 +27,11 @@ npm start
 - [ ] enter key to save
 - [ ] stop save spamming
 - [ ] set up in-memory db for tests
+
+
+---
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 
 ## Available Scripts

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
     "cross-fetch": "^3.0.2",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
@@ -24,7 +25,7 @@
   },
   "scripts": {
     "start": "node server",
-    "dev": "react-scripts start",
+    "dev": "concurrently -k -p \"[{name}]\" -n \" React Scripts , Node \" -c \"cyan.bold,green.bold\" \"react-scripts start\" \"node server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

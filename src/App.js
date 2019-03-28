@@ -14,7 +14,10 @@ class App extends Component {
     render() {
         return (
             <div>
-                <h1 id="title">Evolutionary Tree</h1>
+                <div id="title">
+                    <h1>Totally Fake Evolutionary Tree</h1>
+                    <div>Built as a demo project by AJ Almaguer. Source code <a href="https://github.com/ajalmaguer/evolutionary-tree" target="_blank">here.</a></div>
+                </div>
 
                 <Provider store={store}>
                     <Router>
