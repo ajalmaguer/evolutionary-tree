@@ -1,5 +1,6 @@
 import * as api from '../services/api';
 
+export const SET_ROOT_NODE_ID = 'SET_ROOT_NODE_ID';
 export const CHANGE_NODE_NAME = 'CHANGE_NODE_NAME';
 export const CREATE_NODE = 'CREATE_NODE';
 export const DELETE_NODE = 'DELETE_NODE';
@@ -20,6 +21,11 @@ export const loading = (value) => ({
 
 
 // node actions
+export const setRootNode = (nodeId) => ({
+    type: SET_ROOT_NODE_ID,
+    nodeId,
+});
+
 export const changeNodeName = (nodeId, name) => ({
     type: CHANGE_NODE_NAME,
     nodeId,
@@ -97,7 +103,8 @@ export const fetchNodes = (id = '') => {
         return api.fetchNodes()
             .then(
                 response => {
-                    dispatch(receiveNodes(response.nodesById))
+                    dispatch(setRootNode(response.rootNode.id));
+                    dispatch(receiveNodes(response.nodesById));
                 },
                 error => dispatch(requestNodeError(error))
             );

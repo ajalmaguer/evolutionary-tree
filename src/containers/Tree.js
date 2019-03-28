@@ -21,7 +21,7 @@ class Tree extends Component {
 
     render() {
 
-        const { match: { params }, loading, nodesById, error } = this.props;
+        const { match: { params }, loading, nodesById, error, rootNodeId } = this.props;
 
         if (loading) {
             return (
@@ -41,7 +41,7 @@ class Tree extends Component {
             return (
                 <div className="tree" >
                     <ul>
-                        <Node id={'5c9c593558e1dc4580085a37'} />
+                        <Node id={rootNodeId} />
                     </ul>
                 </div>
             )
@@ -73,6 +73,7 @@ function mapStateToProps(state, ownProps) {
         loading: state.frontend.loading,
         error: state.frontend.error,
         nodesById: state.nodesById,
+        rootNodeId: state.rootNodeId
     };
 }
 const mapDispatchToProps = (dispatch, ownProps) => ({
