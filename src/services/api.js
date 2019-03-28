@@ -30,7 +30,12 @@ const responseData = {
         childIds: []
     }
 }
-export const fetchNodes = () => fetch('GET', '/api/nodes');
+export const fetchNodes = (id) => {
+    if (!id) {
+        return fetch('GET', '/api/nodes');
+    }
+    return fetch('GET', '/api/nodes/' + id);
+};
 
 export const deleteNode = () => {
     return new Promise((resolve, reject) => {

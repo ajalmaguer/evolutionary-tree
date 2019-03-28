@@ -100,7 +100,7 @@ export const fetchNodes = (id = '') => {
 
         dispatch(loading(true));
 
-        return api.fetchNodes()
+        return api.fetchNodes(id)
             .then(
                 response => {
                     dispatch(setRootNode(response.rootNode.id));
