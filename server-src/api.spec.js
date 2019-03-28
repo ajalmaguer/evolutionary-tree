@@ -67,9 +67,3 @@ describe('#create and delete node', () => {
             });
     });
 });
-
-// rp('POST', '/nodes').then(res => console.log('res =', res))
-// rp('GET', '/nodes').then(res => console.log('res =', res))
-// rp('GET', '/nodes/123').then(res => console.log('res =', res))
-// rp('PUT', '/nodes/123').then(res => console.log('res =', res))
-// rp('DELETE', '/nodes/123').then(res => console.log('res =', res))
