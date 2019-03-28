@@ -96,7 +96,9 @@ export const fetchNodes = (id = '') => {
 
         return api.fetchNodes()
             .then(
-                json => dispatch(receiveNodes(json)),
+                response => {
+                    dispatch(receiveNodes(response.nodesById))
+                },
                 error => dispatch(requestNodeError(error))
             );
 

@@ -41,7 +41,7 @@ class Tree extends Component {
             return (
                 <div className="tree" >
                     <ul>
-                        <Node id={'amoeba'} />
+                        <Node id={'5c9c593558e1dc4580085a37'} />
                     </ul>
                 </div>
             )

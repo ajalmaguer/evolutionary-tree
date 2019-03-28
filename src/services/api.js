@@ -1,5 +1,19 @@
-// import fetch from 'cross-fetch';
+import dumbFetch from 'cross-fetch';
 
+const fetch = (method, url, body) => {
+    return dumbFetch(
+        url,
+        {
+            method: method,
+            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+        .then((res) => {
+            return res.json();
+        });
+}
 
 let nextId = 124;
 const responseData = {
@@ -16,12 +30,7 @@ const responseData = {
         childIds: []
     }
 }
-export const fetchNodes = () => {
-    return new Promise(function (resolve, reject) {
-        setTimeout(() => resolve(responseData), 500);
-        // setTimeout(() => reject('There was an error fetching the data.'), 500);
-    });
-};
+export const fetchNodes = () => fetch('GET', '/api/nodes');
 
 export const deleteNode = () => {
     return new Promise((resolve, reject) => {
