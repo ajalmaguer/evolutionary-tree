@@ -11,8 +11,9 @@ const rp = (method, url, body) => {
 };
 
 describe('#getNodes', () => {
-    test('it works', () => {
-        return rp('GET', '/nodes').then(res => console.log('res =', res))
+    test('we can get all nodes', () => {
+        return rp('GET', '/nodes')
+            .then(res => console.log('res =', res));
     });
 });
 

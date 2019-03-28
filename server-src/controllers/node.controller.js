@@ -19,13 +19,13 @@ function getAllNodes(req, res) {
         .then(node => {
             rootNode = node;
             const path = new RegExp(`,${node._id},`);
-            return Node.find({ path });
+            return Node.find({ path }).lean();
         })
         .then(nodes => {
             const payload = {
                 rootNode,
                 nodesById: arrayToObject([rootNode, ...nodes])
-            }
+            };
             res.json(payload);
         })
         .catch(err => {
