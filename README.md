@@ -1,10 +1,30 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Getting Started
+```bash
+mongod # make sure mongo is running
+npm install
+npm start
+```
+
+## References
+- https://codepen.io/Pestov/pen/BLpgm
+- https://github.com/reduxjs/redux/tree/master/examples/tree-view
+
+## Next Steps
+- [x] real restful api
+- [x] serve UI
+- [x] connect real api to ui
+- [ ] enter key to save
+- [ ] stop save spamming
+- [ ] set up in-memory db for tests
+
+
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run dev` and `npm start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -67,14 +87,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
-### References
-- https://codepen.io/Pestov/pen/BLpgm
-- https://github.com/reduxjs/redux/tree/master/examples/tree-view
-
-## Next Steps
-- [x] real restful api
-- [x] serve UI
-- [ ] connect real api to ui
-- [ ] enter key to save
-- [ ] stop save spamming
-- [ ] set up in-memory db for tests
