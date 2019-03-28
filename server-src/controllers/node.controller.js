@@ -1,6 +1,21 @@
 const Node = require('../models/Node');
 const sanitize = require('mongo-sanitize');
 
+const doesNodeExist = (node) => {
+    if (!node) {
+        throw {status: 404, message: 'not found'};
+    }
+    return node;
+}
+
+const errorHandler = (res) => err => {
+    console.log('err =', err);
+    res.status(err.status || 500).json(err || 'error')
+}
+
+
+
+
 function arrayToObject(arr = [], key = '_id') {
     const output = {};
     arr.forEach(node => {
@@ -29,18 +44,18 @@ function getAllNodes(req, res) {
             };
             res.json(payload);
         })
-        .catch(err => {
-            console.log('err =', err);
-            res.status(500).json('error')
-        });
+        .catch(errorHandler(res));
 }
+
+
 
 function getNodeById(req, res) {
     let rootNode;
 
     Node
-        .findOne({ _id: req.params.id })
+        .findOne({ _id: sanitize(req.params.id) })
         .lean()
+        .then(doesNodeExist)
         .then(node => {
             rootNode = node;
             const path = new RegExp(`,${node._id},`);
@@ -53,15 +68,13 @@ function getNodeById(req, res) {
             };
             res.json(payload);
         })
-        .catch(err => {
-            console.log('err =', err);
-            res.status(500).json('error')
-        });
+        .catch(errorHandler(res));
 }
 
 function updateNode(req, res) {
     Node
-        .findOne({ _id: req.params.id })
+        .findOne({ _id: sanitize(req.params.id) })
+        .then(doesNodeExist)
         .then(node => {
             if (!node) {
                 return res.status(404).json('not found');
@@ -70,10 +83,8 @@ function updateNode(req, res) {
             return node.save();
         })
         .then(node => res.json(node))
-        .catch(err => {
-            console.log('err =', err);
-            res.status(500).json('error')
-        });
+        .catch(errorHandler(res));
+}
 
 }
 
