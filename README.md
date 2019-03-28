@@ -72,8 +72,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 - https://github.com/reduxjs/redux/tree/master/examples/tree-view
 
 ## Next Steps
-- [ ] real restful api
-- [ ] serve UI
+- [x] real restful api
+- [x] serve UI
 - [ ] connect real api to ui
 - [ ] enter key to save
 - [ ] stop save spamming
+- [ ] set up in-memory db for tests

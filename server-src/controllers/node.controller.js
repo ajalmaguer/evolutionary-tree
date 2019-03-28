@@ -3,7 +3,7 @@ const sanitize = require('mongo-sanitize');
 
 const doesNodeExist = (node) => {
     if (!node) {
-        throw {status: 404, message: 'not found'};
+        throw { status: 404, message: 'not found' };
     }
     return node;
 }
@@ -13,7 +13,10 @@ const errorHandler = (res) => err => {
     res.status(err.status || 500).json(err || 'error')
 }
 
-
+const getParentNodeId = node => {
+    const stringArray = node.path.split(',').filter(string => !!string);
+    return stringArray[stringArray.length - 1];
+}
 
 
 function arrayToObject(arr = [], key = '_id') {
@@ -86,10 +89,66 @@ function updateNode(req, res) {
         .catch(errorHandler(res));
 }
 
+function createNode(req, res) {
+    const name = sanitize(req.body.name);
+    const parentId = sanitize(req.body.parentId);
+
+    Node
+        .findById(parentId)
+        .then(doesNodeExist)
+        .then(parentNode => {
+            const path = parentNode.path + `${parentNode._id},`;
+            const newNode = new Node({ name, path });
+
+            parentNode.childIds.push(newNode._id);
+
+            return Promise.all([
+                parentNode.save(),
+                newNode.save()
+            ])
+        })
+        .then(([savedParent, newNode]) => {
+            newNode = newNode.toObject();
+            newNode.id = newNode._id;
+            res.json(newNode);
+        })
+        .catch(errorHandler(res));
+}
+
+function deleteNode(req, res) {
+    const nodeId = sanitize(req.params.id);
+    let nodeToDelete;
+
+    Node
+        .findById(nodeId)
+        .then(doesNodeExist)
+        .then(node => {
+            nodeToDelete = node;
+            const parentId = getParentNodeId(nodeToDelete);
+            return Node.findById(parentId)
+        })
+        .then(parentNode => {
+            if (!parentNode) {
+                console.log('no parent node?');
+                throw 'couldnt find parent'; // Todo - clean up
+            }
+            parentNode.childIds = parentNode
+                .childIds
+                .filter(id => id.toString() !== nodeToDelete._id.toString());
+
+            return Promise.all([
+                parentNode.save(),
+                Node.findByIdAndDelete(nodeToDelete._id)
+            ]);
+        })
+        .then(() => res.json('success'))
+        .catch(errorHandler(res));
 }
 
 module.exports = {
     getAllNodes,
     getNodeById,
-    updateNode
+    updateNode,
+    createNode,
+    deleteNode
 }
