@@ -15,6 +15,7 @@ class Tree extends Component {
         const { match: { params: prevParams } } = prevProps;
         const { match: { params } } = this.props
         if (params.id !== prevParams.id) {
+            window.scroll(0, 0);
             this.props.fetchNodes(params.id);
         }
     }
