@@ -105,9 +105,9 @@ export const fetchNodes = (id = '') => {
                 response => {
                     dispatch(setRootNode(response.rootNode.id));
                     dispatch(receiveNodes(response.nodesById));
-                },
-                error => dispatch(requestNodeError(error))
-            );
+                }
+            )
+            .catch(() => dispatch(requestNodeError('not found')));
 
     }
 }
